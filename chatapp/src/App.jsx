@@ -1,11 +1,13 @@
-import Login from "./components/Login";
-import Account from "./pages/Account";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className='App'>
-      <Account />
-    </div>
+    <Routes>
+      <Route exact path="login" element={<Login />} />
+      <Route path="signup" element={<Signup />} />
+    </Routes>
   );
 }
 
