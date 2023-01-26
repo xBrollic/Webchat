@@ -1,0 +1,10 @@
+20230125	14:04:28	b355a8cf-952d-4447-b4d0-4fafa983cd93	TypeError: fsPromises.readFil is not a function
+20230125	18:18:24	24e860e4-ebd8-41d6-ba6b-6f42217fc9eb	Error: Not allowed by CORS
+20230125	18:24:40	0ef5c526-1cd0-4544-81af-436f6962dcdd	ReferenceError: sendFile is not defined
+20230125	18:36:48	9d120f14-523b-4462-abdf-246a8e422407	Error: ENOENT: no such file or directory, stat 'C:\Users\GustavLundgren\Desktop\Webchat\chatapp-server\views\subdir\test.html'
+20230125	18:37:24	ea195c2b-dfbb-43a9-abb0-e2c2799d8bb6	Error: ENOENT: no such file or directory, stat 'C:\Users\GustavLundgren\Desktop\Webchat\chatapp-server\views\subdir\test.html'
+20230125	19:36:13	c25965b4-49b0-4505-9a40-e7a753954ef5	SyntaxError: Unexpected end of JSON input
+20230125	22:21:58	806e1e75-f830-4e1b-b589-60215610ca0a	ReferenceError: parent is not defined
+20230125	22:22:50	0085798f-eb4a-42ad-acf5-3ffef27dbd4d	ReferenceError: parent is not defined
+20230125	22:23:00	d82f7abf-a2d1-4162-9a5c-f599dacd96a2	ReferenceError: parent is not defined
+20230125	22:39:45	9daa7ef1-9a92-4d14-86c3-960727e377a1	SyntaxError: Unexpected token } in JSON at position 9
