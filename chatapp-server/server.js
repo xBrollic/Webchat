@@ -39,6 +39,7 @@ app.use("/get-messages", require("./routes/getAllMessages"));
 
 app.use(verifyJWT);
 app.use("/employees", require("./routes/api/employees"));
+app.use("/del-message", require("./routes/deleteMessage"));
 
 app.all("*", (req, res) => {
   res.status(404);

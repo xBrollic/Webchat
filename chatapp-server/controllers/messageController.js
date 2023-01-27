@@ -1,4 +1,6 @@
 const { format } = require("date-fns");
+const fsPromises = require("fs").promises;
+const path = require("path");
 
 const messagesDB = {
   messages: require("../models/messages.json"),
@@ -6,9 +8,6 @@ const messagesDB = {
     this.messages = data;
   },
 };
-
-const fsPromises = require("fs").promises;
-const path = require("path");
 
 const handleNewMessage = async (req, res) => {
   const dateTime = `${format(new Date(), "yyyyMMdd HH:mm:ss")}`;
@@ -47,4 +46,31 @@ const getAllMessages = async (req, res) => {
   }
 };
 
-module.exports = { handleNewMessage, getAllMessages };
+const deleteMessage = async (req, res) => {
+  // Hitta medelandet med rätt id
+  const message = messagesDB.messages.find((msg) => msg.id === req.body.id);
+  if (!message) {
+    return res.status(400).json({ message: "No message found with that id" });
+  }
+
+  try {
+    // Ta bort den ur datan
+    const filteredArray = messagesDB.messages.filter(
+      (msg) => msg.id !== req.body.id
+    );
+
+    messagesDB.setMessages([...filteredArray]);
+
+    await fsPromises.writeFile(
+      path.join(__dirname, "..", "models", "messages.json"),
+      JSON.stringify(messagesDB.messages)
+    );
+
+    // Svara med code 204
+    res.sendStatus(204);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { handleNewMessage, getAllMessages, deleteMessage };
