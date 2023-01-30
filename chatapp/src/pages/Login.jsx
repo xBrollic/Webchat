@@ -1,24 +1,39 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
+import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import { default as axios } from "../api/index";
 
 const Login = () => {
+  const { setAuth } = useAuth();
   const userRef = useRef();
 
   const [user, setUser] = useState();
   const [pwd, setpwd] = useState();
 
+  const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     try {
-      const response = await axios.post("/auth", { user, pwd });
+      const response = await axios.post(
+        "/auth",
+        JSON.stringify({ user, pwd }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
       console.log(response.data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
@@ -44,6 +59,7 @@ const Login = () => {
             Password
           </label>
           <input name='password' type='password' className={inpC} />
+          {loading && <ClipLoader className='mt-2' />}
           <button
             onClick={(e) => {
               handleSubmit(e);
