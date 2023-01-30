@@ -468,3 +468,7 @@
 20230130	22:07:51	2a07b2df-177e-4cc3-ac79-189ebad93b67	POST	http://127.0.0.1:5173	/auth
 20230130	22:08:21	62b3c98b-5fd3-4d40-9a64-2b6c1abd0ba9	OPTIONS	http://127.0.0.1:5173	/auth
 20230130	22:08:21	4bfd6961-3544-44c0-bd55-8c5b59bbee9d	POST	http://127.0.0.1:5173	/auth
+20230130	22:28:05	4635dc30-7d80-4323-a4df-170a9d3d3671	OPTIONS	http://localhost:5173	/auth
+20230130	22:28:05	bdca2fa8-fd7c-4912-8f2d-a0e0f5ffddf6	POST	http://localhost:5173	/auth
+20230130	22:29:46	f4046c19-a5bf-4dee-8496-decf48bb699b	OPTIONS	http://localhost:5173	/auth
+20230130	22:29:46	f8aa047b-00d0-4279-bdc5-14769e23ef40	POST	http://localhost:5173	/auth
