@@ -1,15 +1,32 @@
+import { default as axios } from "../api/index";
 import React from "react";
 import { FiSend } from "react-icons/fi";
 import Message from "../components/Message";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const { auth } = useAuth();
   const data = [{ content: "Hej", user: auth, time: "12" }];
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get("/logout");
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+
+    navigate("/");
+  };
 
   return (
     <main className='w-screen h-screen bg-[#28104E] flex justify-center items-center font-unbounded'>
       <section className='bg-[#6237A0] h-screen w-9/12 max-w-[700px] min-w-[500px] '>
+        <button className='bg-[yellow]' onClick={() => handleLogout()}>
+          Log out
+        </button>
         {/* {data.map((e) => {
         //   return (
         //     <Message content={e.content} user={e.user} time={e.time} />
