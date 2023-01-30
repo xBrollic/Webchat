@@ -21,7 +21,7 @@ const handleNewUser = async (req, res) => {
 
   if (duplicate) {
     console.log(duplicate);
-    return res.status(409).json({ message: "User alredy exists" });
+    return res.status(409).json({ message: "User already exists" });
   }
 
   try {

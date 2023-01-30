@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const navigate = useNavigate();
+
+  const nav = () => {
+    navigate("/login");
+  };
+
   const inpC =
-    "rounded-md transition-shadow shadow-lg hover:shadow-[#6237a0] w-3/5 h-9 text-sm p-2 min-w-[300px] focus:shadow-[#8025ff] bg-[#e6caf3]";
+    "rounded-full transition-shadow shadow-lg hover:shadow-[#6237a0] w-3/5 h-9 text-sm p-2 min-w-[300px] focus:shadow-[#8025ff] bg-[#e6caf3]";
   return (
     <Container>
       <div className="w-screen h-screen bg-[#28104E]">
@@ -21,12 +32,23 @@ const Signup = () => {
           <label className="text-[#eed4fa] text-xl mt-5" htmlFor="password">
             Password
           </label>
-          <input className={inpC} name="password" type="text" />
-          <button className="mt-3 p-1 rounded-lg bg-[#6237a0] text-[#deacf5] w-3/6 relative hover:bg-[#deacf5] hover:text-[#6237a0] transition-colors duration-200">
+          <input className={inpC} name="password" type="password" />
+          <button
+            className="mt-3 p-1 rounded-lg bg-[#6237a0] text-[#deacf5] w-3/6 relative hover:bg-[#deacf5] hover:text-[#6237a0] transition-colors,transform duration-200 hover:scale-105 hover:drop-shadow-xl"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
             Sign up
           </button>
-          <p>Already have an account?</p>
-          <a className="text-blue-100 hover:underline" href="">
+          <p className="text-[#481f68]">Already have an account?</p>
+          <a
+            onClick={() => {
+              nav();
+            }}
+            className="text-blue-100 hover:underline"
+            href=""
+          >
             Sign in
           </a>
         </form>
