@@ -391,3 +391,5 @@
 20230126	21:35:45	ee56c4c0-0b33-4768-8fad-59fbfbf033e0	DELETE	undefined	/del-message
 20230126	21:35:50	6c03a708-bef4-4df7-8a00-4db1826fcb38	GET	undefined	/refresh
 20230126	21:36:02	b001f185-c860-4481-91a9-5901cc59763c	DELETE	undefined	/del-message
+20230130	15:38:00	4a06271f-d254-4bf7-bffd-2dafc1b5b617	POST	undefined	/auth
+20230130	15:38:23	756cc87e-5281-4cde-ac15-868b82447336	POST	undefined	/register
