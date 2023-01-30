@@ -29,7 +29,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const inpC =
-    "rounded-full transition-shadow shadow-lg hover:shadow-[#6237a0] w-3/5 h-9 text-sm p-2 min-w-[300px] focus:shadow-[#8025ff] bg-[#e6caf3]";
+    "outline-none rounded-full transition-shadow shadow-lg hover:shadow-[#6237a0] w-3/5 h-9 text-sm p-2 min-w-[300px] focus:shadow-[#8025ff] bg-[#e6caf3]";
   return (
     <Container>
       <div className='w-screen h-screen bg-[#28104E]'>
