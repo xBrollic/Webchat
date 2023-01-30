@@ -8,6 +8,7 @@ import { default as axios } from "../api/index";
 const Login = () => {
   const { setAuth } = useAuth();
   const userRef = useRef();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState();
   const [pwd, setpwd] = useState();
@@ -29,10 +30,25 @@ const Login = () => {
           withCredentials: true,
         }
       );
+
+      const accessToken = response?.data?.accessToken;
+      setAuth({ user, pwd, accessToken });
+
       console.log(response.data);
       setLoading(false);
+      navigate("/chat");
     } catch (err) {
       console.log(err);
+
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
       setLoading(false);
     }
   };
@@ -41,10 +57,9 @@ const Login = () => {
     navigate("/signup");
   };
 
-  const navigate = useNavigate();
-
   const inpC =
-    "rounded-full transition-shadow shadow-lg hover:shadow-[#6237a0] w-3/5 h-9 text-sm p-2 min-w-[300px] focus:shadow-[#8025ff] bg-[#e6caf3]";
+    "focus:outline-none rounded-full transition-shadow shadow-lg hover:shadow-[#6237a0] w-3/5 h-9 text-sm p-2 min-w-[300px] focus:shadow-[#8025ff] bg-[#e6caf3]";
+
   return (
     <Container>
       <div className='w-screen h-screen bg-[#28104E]'>
@@ -53,12 +68,22 @@ const Login = () => {
           <label htmlFor='username' className='text-[#eed4fa] text-xl mt-5'>
             Username
           </label>
-          <input name='username' type='text' className={inpC} />
+          <input
+            name='username'
+            type='text'
+            className={inpC}
+            onChange={(e) => setUser(e.target.value)}
+          />
 
           <label htmlFor='password' className='text-[#eed4fa] text-xl mt-5'>
             Password
           </label>
-          <input name='password' type='password' className={inpC} />
+          <input
+            name='password'
+            type='password'
+            className={inpC}
+            onChange={(e) => setpwd(e.target.value)}
+          />
           {loading && <ClipLoader className='mt-2' />}
           <button
             onClick={(e) => {

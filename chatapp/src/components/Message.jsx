@@ -14,8 +14,7 @@ const Message = ({ content, user, time }) => {
 
 export default Message;
 
-/* 
-const [data, setData] = useState();
+/* const [data, setData] = useState();
 
 const fetchMessages = () => {
     try {
