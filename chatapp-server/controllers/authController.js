@@ -61,7 +61,7 @@ const handleLogin = async (req, res) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
-      //secure: true,   // funkar inte med api testare, behövs för chrome
+      secure: true, // funkar inte med api testare, behövs för chrome
       maxAge: 24 * 60 * 60 * 1000,
     });
     res.json({ accessToken });

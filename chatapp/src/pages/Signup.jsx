@@ -57,17 +57,17 @@ const Signup = () => {
 
   return (
     <Container>
-      <main className="w-screen h-screen bg-[#28104E]">
-        <form className="grid justify-center font-unbounded w-2/6 h-fit pt-8 min-w-min min-h-[400px] flex-col rounded-[2.5rem] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 bg-[#9754cb] shadow-2xl hover:shadow-[#9754cb79] transition-shadow duration-500 place-items-center">
-          <h1 className="text-3xl font-bold text-[#deacf5]">SIGN UP</h1>
-          <label className="text-[#eed4fa] text-xl mt-5" htmlFor="username">
+      <main className='w-screen h-screen bg-[#28104E]'>
+        <form className='grid justify-center font-unbounded w-2/6 h-fit pt-8 min-w-min min-h-[400px] flex-col rounded-[2.5rem] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 bg-[#9754cb] shadow-2xl hover:shadow-[#9754cb79] transition-shadow duration-500 place-items-center'>
+          <h1 className='text-3xl font-bold text-[#deacf5]'>SIGN UP</h1>
+          <label className='text-[#eed4fa] text-xl mt-5' htmlFor='username'>
             Username
           </label>
           <input
             className={inpC}
-            name="username"
-            type="text"
-            autoComplete="off"
+            name='username'
+            type='text'
+            autoComplete='off'
             ref={userRef}
             onChange={(e) => setUser(e.target.value)}
             required
@@ -81,14 +81,14 @@ const Signup = () => {
             must start with a letter <br />
             characters, numbers, underscores and hyphens are allowed
           </p>
-          <label className="text-[#eed4fa] text-xl mt-5" htmlFor="password">
+          <label className='text-[#eed4fa] text-xl mt-5' htmlFor='password'>
             Password
           </label>
           <input
             className={inpC}
-            name="password"
-            autoComplete="off"
-            type="password"
+            name='password'
+            autoComplete='off'
+            type='password'
             onChange={(e) => setPwd(e.target.value)}
             required
             onFocus={() => setPwdFocus(true)}
@@ -100,7 +100,7 @@ const Signup = () => {
             Allowed special characters: !@#$%
           </p>
           <button
-            className="mt-3 p-1 rounded-lg bg-[#6237a0] text-[#deacf5] w-3/6 relative enabled:hover:bg-[#deacf5] enabled:hover:text-[#6237a0] transition-colors duration-200 disabled:cursor-default disabled:bg-opacity-80"
+            className='mt-3 p-1 rounded-lg bg-[#6237a0] text-[#deacf5] w-3/6 relative enabled:hover:bg-[#deacf5] enabled:hover:text-[#6237a0] transition-colors duration-200 disabled:cursor-default disabled:bg-opacity-80'
             disabled={!validName || !validPwd ? true : false}
             onClick={(e) => handleSubmit(e)}
           >
@@ -108,7 +108,7 @@ const Signup = () => {
           </button>
           <p>Already have an account?</p>
           <a
-            className="text-blue-100 hover:underline"
+            className='text-blue-100 hover:underline'
             onClick={() => navigate("/login")}
           >
             Sign in
