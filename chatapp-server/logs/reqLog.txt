@@ -468,6 +468,7 @@
 20230130	22:07:51	2a07b2df-177e-4cc3-ac79-189ebad93b67	POST	http://127.0.0.1:5173	/auth
 20230130	22:08:21	62b3c98b-5fd3-4d40-9a64-2b6c1abd0ba9	OPTIONS	http://127.0.0.1:5173	/auth
 20230130	22:08:21	4bfd6961-3544-44c0-bd55-8c5b59bbee9d	POST	http://127.0.0.1:5173	/auth
+<<<<<<< HEAD
 20230130	22:19:16	01586328-23c3-4b83-9a7c-4c4433e80a17	GET	undefined	/
 20230130	22:19:16	659313fc-544b-408e-9b67-f8d87d5a31eb	GET	undefined	/css/style.css
 20230130	22:19:16	97c51f03-5405-41cd-aba8-fa72c21644e4	GET	undefined	/favicon.ico
@@ -506,3 +507,9 @@
 20230130	22:26:39	f9583c5a-1b52-4dfc-9842-6d32313287b5	POST	http://localhost:5173	/auth
 20230130	22:26:40	9c0c6544-6478-4eeb-aa7c-583f187d2687	POST	http://localhost:5173	/auth
 20230130	22:26:40	1e0c0f0c-1af1-4f63-a627-5d2807d20351	POST	http://localhost:5173	/auth
+=======
+20230130	22:28:05	4635dc30-7d80-4323-a4df-170a9d3d3671	OPTIONS	http://localhost:5173	/auth
+20230130	22:28:05	bdca2fa8-fd7c-4912-8f2d-a0e0f5ffddf6	POST	http://localhost:5173	/auth
+20230130	22:29:46	f4046c19-a5bf-4dee-8496-decf48bb699b	OPTIONS	http://localhost:5173	/auth
+20230130	22:29:46	f8aa047b-00d0-4279-bdc5-14769e23ef40	POST	http://localhost:5173	/auth
+>>>>>>> b7f157e79f123d5e330b6f63ebe852965dcd54ee

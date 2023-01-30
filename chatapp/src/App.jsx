@@ -4,6 +4,7 @@ import Signup from "./pages/Signup";
 import Chat from "./pages/Chat";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -14,10 +15,11 @@ function App() {
         {/*public*/}
         <Route exact path='login' element={<Login />} />
         <Route exact path='signup' element={<Signup />} />
+        <Route exact path='/' element={<Home />} />
 
         {/*private*/}
         <Route element={<RequireAuth />}>
-          <Route path='chat' element={<Chat />} />
+          <Route path='/chat' element={<Chat />} />
         </Route>
 
         {/*allt annat*/}
