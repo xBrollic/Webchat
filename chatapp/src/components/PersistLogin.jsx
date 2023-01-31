@@ -28,7 +28,17 @@ const PersistLogin = () => {
     console.log(`aT: ${JSON.stringify(auth.accessToken)}`);
   }, [isLoading]);
 
-  return <>{isLoading ? <ClipLoader /> : <Outlet />}</>;
+  return (
+    <>
+      {isLoading ? (
+        <main className='bg-[#28104E] h-screen w-screen grid place-content-center'>
+          <ClipLoader />
+        </main>
+      ) : (
+        <Outlet />
+      )}
+    </>
+  );
 };
 
 export default PersistLogin;
