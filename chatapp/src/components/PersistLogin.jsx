@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import useRefreshToken from "../hooks/useRefreshToken";
 import useAuth from "../hooks/useAuth";
+import { ClipLoader } from "react-spinners";
 
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,9 +19,16 @@ const PersistLogin = () => {
         setIsLoading(false);
       }
     };
+
+    !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
   }, []);
 
-  return <div></div>;
+  useEffect(() => {
+    console.log(`isLoading: ${isLoading}`);
+    console.log(`aT: ${JSON.stringify(auth.accessToken)}`);
+  }, [isLoading]);
+
+  return <>{isLoading ? <ClipLoader /> : <Outlet />}</>;
 };
 
 export default PersistLogin;

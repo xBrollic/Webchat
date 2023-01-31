@@ -1,5 +1,6 @@
 import Login from "./pages/Login";
 import RequireAuth from "./components/RequireAuth";
+import PercistLogin from "./components/PersistLogin";
 import Signup from "./pages/Signup";
 import Chat from "./pages/Chat";
 import Layout from "./components/Layout";
@@ -18,10 +19,11 @@ function App() {
         <Route exact path='/' element={<Home />} />
 
         {/*private*/}
-        <Route element={<RequireAuth />}>
-          <Route path='/chat' element={<Chat />} />
+        <Route element={<PercistLogin />}>
+          <Route element={<RequireAuth />}>
+            <Route path='/chat' element={<Chat />} />
+          </Route>
         </Route>
-
         {/*allt annat*/}
         <Route path='*' element={<NotFound />} />
       </Route>
