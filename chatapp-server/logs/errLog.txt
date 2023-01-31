@@ -9,3 +9,9 @@
 20230125	22:23:00	d82f7abf-a2d1-4162-9a5c-f599dacd96a2	ReferenceError: parent is not defined
 20230125	22:39:45	9daa7ef1-9a92-4d14-86c3-960727e377a1	SyntaxError: Unexpected token } in JSON at position 9
 20230130	20:19:17	e7c65b52-b6c3-4224-861a-bf78a08f3d8c	Error: Not Allowed By CORS
+20230131	18:07:09	aad60ee6-eb7f-4bba-a3d6-8c76cddef666	Error: Not Allowed By CORS
+20230131	18:08:52	f4ec0e42-10c9-4033-9000-a51efda277d6	Error: Not Allowed By CORS
+20230131	18:08:53	a54f9df5-aefc-4881-9ee9-79e8cf3e4cac	Error: Not Allowed By CORS
+20230131	18:08:54	16197895-d66f-4a05-863d-06d0b58f868f	Error: Not Allowed By CORS
+20230131	18:08:54	04c6cc91-a098-45be-adcc-6b2256855b74	Error: Not Allowed By CORS
+20230131	18:08:56	8d47ee6a-cfbd-4bff-a659-ad91557d2ad7	Error: Not Allowed By CORS
