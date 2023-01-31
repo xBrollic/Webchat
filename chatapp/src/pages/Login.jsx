@@ -10,11 +10,11 @@ const Login = () => {
   const userRef = useRef();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState();
-  const [pwd, setpwd] = useState();
+  const [user, setUser] = useState("");
+  const [pwd, setpwd] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [errMsg, setErrMsg] = useState();
+  const [errMsg, setErrMsg] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +53,14 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [user, pwd]);
+
   const nav = () => {
     navigate("/signup");
   };
@@ -69,6 +77,7 @@ const Login = () => {
             Username
           </label>
           <input
+            ref={userRef}
             name='username'
             type='text'
             className={inpC}
@@ -84,7 +93,17 @@ const Login = () => {
             className={inpC}
             onChange={(e) => setpwd(e.target.value)}
           />
+
+          {errMsg.length > 0 && (
+            <p
+              className='bg-[#faa0a0] pr-5 pl-5
+             pt-2 pb-2 rounded-md text-[#800000] mt-4'
+            >
+              {errMsg}
+            </p>
+          )}
           {loading && <ClipLoader className='mt-2' />}
+
           <button
             onClick={(e) => {
               handleSubmit(e);
