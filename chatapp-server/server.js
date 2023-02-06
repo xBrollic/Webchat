@@ -36,6 +36,7 @@ app.use("/refresh", require("./routes/refresh"));
 app.use("/logout", require("./routes/logout"));
 app.use("/send-message", require("./routes/sendMessage"));
 app.use("/get-messages", require("./routes/getAllMessages"));
+app.use("/get-pic", require("./routes/getPic"));
 
 app.use(verifyJWT);
 app.use("/employees", require("./routes/api/employees"));

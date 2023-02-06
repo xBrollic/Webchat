@@ -6,10 +6,9 @@ import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import { useState, useEffect } from "react";
-
-
-
-
+import cat from "../images/profile-pictures/cat.jpg";
+import dog from "../images/profile-pictures/dog.jpg";
+import turtle from "../images/profile-pictures/turtle.jpg";
 
 const Chat = () => {
   const { auth, setAuth } = useAuth();
@@ -17,17 +16,17 @@ const Chat = () => {
   const navigate = useNavigate();
   const logout = useLogout();
 
+  const pics = [dog, cat, turtle];
+
   const [messages, setMessages] = useState([]);
   const [txt, setTxt] = useState("");
-
+  const [picIndex, setPicIndex] = useState();
 
   const getMessages = async () => {
     try {
       const response = await axios.get("/get-messages");
 
       setMessages(response.data);
-
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -50,8 +49,36 @@ const Chat = () => {
     getMessages();
   };
 
+  const getPic = async () => {
+    try {
+      const response = await axios.post("/get-pic", {
+        username: auth.username,
+      });
+
+      switch (response.data) {
+        case "dog":
+          setPicIndex(0);
+          break;
+        case "cat":
+          setPicIndex(1);
+          break;
+        case "turtle":
+          setPicIndex(2);
+          break;
+        default:
+          setPicIndex(1);
+          break;
+      }
+
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getMessages();
+    getPic();
   }, []);
 
   const signOut = async () => {
@@ -64,8 +91,8 @@ const Chat = () => {
       <div className="bg-[#1a0b31] absolute w-screen h-[80px] top-0"></div>
       <section className="absolute right-32 top-2 flex justify-center items-center gap-2">
         <img
-          src="https://cdn.wallpapersafari.com/30/16/coBJ75.jpg"
-          className="h-16 w-16 rounded-full border-2 border-[#e6caf3]"
+          src={pics[picIndex]}
+          className='h-16 w-16 rounded-full border-2 border-[#e6caf3]'
         />
         <h3 className="text-[#e6caf3]">{auth.user}</h3>
       </section>
