@@ -3,10 +3,10 @@ import React from "react";
 const Message = ({ content, user, time }) => {
   return (
     <>
-      <p>{user}</p> 
-      <div>
+      <p className="text-white text-opacity-70 ml-2">{user}</p>
+      <div className="bg-[#deacf5] w-fit p-1 rounded-xl ml-2 flex flex-col rounded-tl-sm drop-shadow-xl mb-3">
         <h3>{content}</h3>
-        <p>{time}</p>
+        <p className="text-xs w-fit text-black text-opacity-60">{time}</p>
       </div>
     </>
   );
