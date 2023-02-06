@@ -10,7 +10,8 @@ const messagesDB = {
 };
 
 const handleNewMessage = async (req, res) => {
-  const dateTime = `${format(new Date(), "yyyyMMdd HH:mm:ss")}`;
+  const date = `${format(new Date(), "yyyyMMdd")}`;
+  const time = `${format(new Date(), "HH:mm")}`;
 
   try {
     const newMessage = {
@@ -18,7 +19,8 @@ const handleNewMessage = async (req, res) => {
         ? messagesDB.messages[messagesDB.messages.length - 1].id + 1
         : 1,
       user: req.body.user,
-      time: dateTime,
+      date: date,
+      time: time,
       content: req.body.content,
     };
 

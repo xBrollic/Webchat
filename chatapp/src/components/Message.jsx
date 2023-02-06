@@ -3,7 +3,7 @@ import React from "react";
 const Message = ({ content, user, time }) => {
   return (
     <>
-      <p>{user}</p>
+      <p>{user}</p> 
       <div>
         <h3>{content}</h3>
         <p>{time}</p>
