@@ -20,3 +20,14 @@
 20230206	15:53:22	1846ebc8-f471-4e17-a2c1-7fa91b153361	Error: Not Allowed By CORS
 20230206	15:53:26	fed1e0df-e773-4b88-9040-a84c44e5e66b	Error: Not Allowed By CORS
 20230206	15:53:28	e58e54fa-22c0-4822-a748-1ad8cf283ad6	Error: Not Allowed By CORS
+20230207	10:03:15	362c2231-659e-4c57-9588-aa0401ed3e10	Error: Not Allowed By CORS
+20230207	10:03:27	620896a6-2838-4616-b626-65f9c26c3bfe	Error: Not Allowed By CORS
+20230207	11:19:50	7859aaa7-1822-4d79-8ea7-81bb6cfa4935	Error: Not Allowed By CORS
+20230207	14:57:22	e9641ee7-106a-4afa-aad8-9931acde77fd	ReferenceError: localStorage is not defined
+20230207	14:58:47	96d2827f-5b29-48e3-b9d4-56883d0b174a	ReferenceError: localStorage is not defined
+20230207	15:00:38	532a5cbc-5a89-4ea9-9246-ea615ee5ef60	ReferenceError: localStorage is not defined
+20230207	15:02:25	d490d0f3-5de0-4866-9eaf-b86975485b37	ReferenceError: localStorage is not defined
+20230207	15:03:35	70f3ef0f-5225-4939-8b9b-922dd14c475c	ReferenceError: localStorage is not defined
+20230207	15:04:10	06b4f204-4b96-46b6-90ea-804c24f2fa47	ReferenceError: localStorage is not defined
+20230207	15:04:30	3c36c85a-a6e1-4d4c-9525-0588d3973493	ReferenceError: localStorage is not defined
+20230207	15:15:11	ba9c6490-6ffa-4bab-bb8b-2b31b3665272	TypeError: Cannot read properties of undefined (reading 'rT')

@@ -32,9 +32,13 @@ const Login = () => {
       );
 
       const accessToken = response?.data?.accessToken;
-      setAuth({ user, pwd, accessToken });
+      const refreshToken = response?.data?.refreshToken;
 
-      console.log(response.data);
+      setAuth({ user, pwd, accessToken });
+      console.log(refreshToken);
+      localStorage.setItem("rT", refreshToken);
+
+      console.log(response);
       setLoading(false);
       navigate("/chat");
     } catch (err) {

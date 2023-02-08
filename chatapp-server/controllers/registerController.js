@@ -32,7 +32,6 @@ const handleNewUser = async (req, res) => {
         User: 2001,
       },
       password: hashedPwd,
-      pic: "",
     };
     usersDB.setUsers([...usersDB.users, newUser]);
 

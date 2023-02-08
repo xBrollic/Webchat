@@ -12,7 +12,7 @@ const messagesDB = {
 const handleNewMessage = async (req, res) => {
   const date = `${format(new Date(), "yyyyMMdd")}`;
   const time = `${format(new Date(), "HH:mm")}`;
-
+ 
   try {
     const newMessage = {
       id: messagesDB.messages?.length
@@ -40,7 +40,6 @@ const handleNewMessage = async (req, res) => {
 };
 
 const getAllMessages = async (req, res) => {
-  console.log(messagesDB.messages);
   try {
     res.status(201).json(messagesDB.messages);
   } catch (err) {

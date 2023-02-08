@@ -24,7 +24,7 @@ const handleLogout = async (req, res) => {
   console.log("user", foundUser);
 
   if (!foundUser) {
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: false });
     return res.sendStatus(204);
   }
 
@@ -40,7 +40,7 @@ const handleLogout = async (req, res) => {
     JSON.stringify(usersDB.users)
   );
 
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+  res.clearCookie("jwt", { httpOnly: false, sameSite: "None", secure: false });
   res.sendStatus(204);
 };
 

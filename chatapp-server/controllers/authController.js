@@ -15,7 +15,7 @@ const path = require("path");
 const handleLogin = async (req, res) => {
   const { user, pwd } = req.body;
 
-  if (!user || !pwd) { 
+  if (!user || !pwd) {
     return res
       .status(400)
       .json({ message: "Username and password are required" });
@@ -59,12 +59,12 @@ const handleLogin = async (req, res) => {
     );
 
     res.cookie("jwt", refreshToken, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "None",
-      secure: true, // funkar inte med api testare, behövs för chrome
+      // secure: false, // funkar inte med api testare, behövs för chrome
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res.json({ accessToken });
+    res.json({ accessToken, refreshToken });
   } else {
     res.sendStatus(401);
   }

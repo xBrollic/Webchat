@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Middleware for cookies
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // Serve static files
 app.use("/", express.static(path.join(__dirname, "/public")));
@@ -34,13 +34,12 @@ app.use("/register", require("./routes/register"));
 app.use("/auth", require("./routes/auth"));
 app.use("/refresh", require("./routes/refresh"));
 app.use("/logout", require("./routes/logout"));
-app.use("/send-message", require("./routes/sendMessage"));
 app.use("/get-messages", require("./routes/getAllMessages"));
-app.use("/get-pic", require("./routes/getPic"));
 
 app.use(verifyJWT);
 app.use("/employees", require("./routes/api/employees"));
 app.use("/del-message", require("./routes/deleteMessage"));
+app.use("/send-message", require("./routes/sendMessage"));
 
 app.all("*", (req, res) => {
   res.status(404);
@@ -56,4 +55,6 @@ app.all("*", (req, res) => {
 
 app.use(errorHandeler);
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, "10.71.93.6", () =>
+  console.log(`Server running on port ${PORT}`)
+);

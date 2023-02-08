@@ -1,12 +1,18 @@
-import { default as axios } from "../api/index";
+import axios from "../api/index";
 import useAuth from "./useAuth";
+import jwt_decode from "jwt-decode";
 import jwtDecode from "jwt-decode";
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await axios.get("refresh", { withCredentials: true });
+    const response = await axios.post(
+      "/refresh",
+      { rT: localStorage.getItem("rT") } /*, {
+      withCredentials: true,
+    } */
+    );
 
     setAuth((prev) => {
       console.log(JSON.stringify(prev));
@@ -16,6 +22,7 @@ const useRefreshToken = () => {
         user: jwtDecode(response.data.accessToken).UserInfo.username,
         accessToken: response.data.accessToken,
       };
+      // return { ...prev, accessToken: response.data.accessToken };
     });
     return response.data.accessToken;
   };

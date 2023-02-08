@@ -6,15 +6,16 @@ const useLogout = () => {
 
   const logout = async () => {
     setAuth({});
-    try {
-      const response = await axios.get("/logout", {
-        withCredentials: true,
-      });
+    localStorage.setItem("rT", "");
+    // try {
+    //   const response = await axios.get("/logout", {
+    //     withCredentials: true,
+    //   });
 
-      console.log(response?.data?.status);
-    } catch (err) {
-      console.log(err);
-    }
+    //   console.log(response?.data?.status);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return logout;
