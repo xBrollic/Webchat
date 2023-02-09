@@ -31,7 +31,6 @@ const handleNewMessage = async (req, res) => {
       JSON.stringify(messagesDB.messages)
     );
 
-    console.log(messagesDB.messages);
     res.status(201).json({ success: "Message sent successfully" });
   } catch (err) {
     console.log(err);
@@ -40,20 +39,7 @@ const handleNewMessage = async (req, res) => {
 };
 
 const getAllMessages = async (req, res) => {
-  try {
-    //   res.status(201).json(messagesDB.messages);
-    res.writeHead(200, {
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-      "Content-Type": "text/event-stream",
-    });
-
-    setInterval(() => {
-      res.write(JSON.stringify(messagesDB.messages));
-    }, 2000);
-  } catch (err) {
-    console.log(err);
-  }
+  res.status(200).json(messagesDB.messages);
 };
 
 const deleteMessage = async (req, res) => {

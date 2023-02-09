@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import { useState, useEffect, useRef } from "react";
 
+import { io } from "socket.io-client";
+
 const Chat = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -14,40 +16,48 @@ const Chat = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const [txt, setTxt] = useState("");
   const lastMessageRef = useRef(null);
-
-  const getMessages = async () => {
-    // try {
-    //   const response = await axios.get("/get-messages");
-    //   setMessages(response.data);
-    //   console.log(response);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
+  const socket = useRef();
 
   useEffect(() => {
-    const source = new EventSource(`http://10.71.93.6:3500/get-messages`);
-
-    source.addEventListener("open", () => {
-      console.log("SSE opened!");
-    });
-
-    source.addEventListener("message", (e) => {
-      console.log(e.data);
-    });
-
-    source.addEventListener("error", (e) => {
-      console.error("Error: ", e);
-    });
-
-    return () => {
-      source.close();
-    };
+    loadMessages();
+    socket.current = io("http://192.168.56.1:5173");
+    socket.current.emit("addUser", "");
   }, []);
 
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-receive", (msg) => {
+        console.log(msg);
+        setNewMessage(msg);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    newMessage && setMessages((pre) => [...pre, newMessage]);
+  }, [newMessage]);
+
+  const loadMessages = async () => {
+    try {
+      const response = await axios.get("/get-messages");
+
+      setMessages(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const sendMessage = async () => {
+    socket.current.emit("send-msg", {
+      to: "",
+      from: auth.user,
+      message: txt,
+    });
+    setTxt("");
+
     const controller = new AbortController();
     try {
       const response = await axiosPrivate.post("/send-message", {
@@ -59,12 +69,11 @@ const Chat = () => {
     } catch (err) {
       console.log(err);
     }
-    setTxt("");
-    // getMessages();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     txt.length > 0 ? sendMessage() : alert("Message Content needed!");
   };
 

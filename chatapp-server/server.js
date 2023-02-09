@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
+const socket = require("socket.io");
 const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const errorHandeler = require("./middleware/errorHandeler");
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Middleware for cookies
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // Serve static files
 app.use("/", express.static(path.join(__dirname, "/public")));
@@ -55,6 +56,33 @@ app.all("*", (req, res) => {
 
 app.use(errorHandeler);
 
-app.listen(PORT, "10.71.93.6", () =>
+const server = app.listen(PORT, "192.168.56.1", () =>
   console.log(`Server running on port ${PORT}`)
 );
+
+const io = socket(server, {
+  cors: {
+    origin: "http://192.168.56.1:5173",
+    credentials: true,
+  },
+});
+
+global.olineUsers = new Map();
+io.on("connection", (socket) => {
+  global.chatsocket = socket;
+  socket.on("addUser", (id) => {
+    onlineUsers.set(id, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+
+    console.log(onlineUsers);
+
+    console.log(data);
+
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-receive", data.message);
+    }
+  });
+});
