@@ -5,7 +5,7 @@ import Message from "../components/Message";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Chat = () => {
   const { auth } = useAuth();
@@ -15,16 +15,37 @@ const Chat = () => {
 
   const [messages, setMessages] = useState([]);
   const [txt, setTxt] = useState("");
+  const lastMessageRef = useRef(null);
 
   const getMessages = async () => {
-    try {
-      const response = await axios.get("/get-messages");
-
-      setMessages(response.data);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const response = await axios.get("/get-messages");
+    //   setMessages(response.data);
+    //   console.log(response);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
+
+  useEffect(() => {
+    const source = new EventSource(`http://10.71.93.6:3500/get-messages`);
+
+    source.addEventListener("open", () => {
+      console.log("SSE opened!");
+    });
+
+    source.addEventListener("message", (e) => {
+      console.log(e.data);
+    });
+
+    source.addEventListener("error", (e) => {
+      console.error("Error: ", e);
+    });
+
+    return () => {
+      source.close();
+    };
+  }, []);
 
   const sendMessage = async () => {
     const controller = new AbortController();
@@ -39,7 +60,7 @@ const Chat = () => {
       console.log(err);
     }
     setTxt("");
-    getMessages();
+    // getMessages();
   };
 
   const handleSubmit = (e) => {
@@ -48,8 +69,8 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    getMessages();
-  }, []);
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const signOut = async () => {
     await logout();
@@ -58,16 +79,16 @@ const Chat = () => {
 
   return (
     <main className='w-screen h-screen bg-[#28104E] flex justify-center items-center font-unbounded overflow-y-hidden'>
-      <div className='bg-[#1a0b31] absolute w-screen h-[80px] top-0'></div>
+      <div className='bg-[#1a0b31] absolute w-screen h-[80px] top-0 z-10'></div>
       <section className='absolute right-32 top-2 flex justify-center items-center gap-2'>
         <img
           src={""}
-          className='h-16 w-16 rounded-full border-2 border-[#e6caf3]'
+          className='h-16 w-16 rounded-full border-2 border-[#e6caf3] z-20'
         />
-        <h3 className='text-[#e6caf3]'>{auth.user}</h3>
+        <h3 className='text-[#e6caf3] z-20'>{auth.user}</h3>
       </section>
       <button
-        className='absolute bg-[#fff692] w-fit h-fit p-3 rounded-full font-bold hover:bg-[#fffac8] transition-all duration-200 hover:scale-[1.1] hover:shadow-md hover:shadow-[#fffccb3d] hover:text-[#7d761e] m-4 right-0 top-0'
+        className='absolute bg-[#fff692] w-fit h-fit p-3 rounded-full font-bold hover:bg-[#fffac8] transition-all duration-200 hover:scale-[1.1] hover:shadow-md hover:shadow-[#fffccb3d] hover:text-[#7d761e] m-4 right-0 top-0 z-20'
         onClick={() => signOut()}
       >
         Log out
@@ -84,7 +105,8 @@ const Chat = () => {
               />
             );
           })}
-        <form className='flex flex-row absolute bottom-5 min-w[500px] max-w-screen-lg  rounded-full h-fit text-[#613682] left-1/2 translate-x-[-50%] w-11/12 bg-[#e6caf3] p-2 pl-4 pr-4'>
+        <div ref={lastMessageRef}></div>
+        <div className='flex flex-row absolute bottom-5 min-w[500px] max-w-screen-lg  rounded-full h-fit text-[#613682] left-1/2 translate-x-[-50%] w-11/12 bg-[#e6caf3] p-2 pl-4 pr-4'>
           <input
             type='text'
             placeholder='Send'
@@ -100,7 +122,7 @@ const Chat = () => {
               }}
             />
           </button>
-        </form>
+        </div>
       </section>
     </main>
   );
