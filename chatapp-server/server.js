@@ -1,15 +1,32 @@
 const express = require("express");
 const app = express();
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: "http://192.168.56.1:5173",
+    credentials: true,
+  },
+});
+
 const path = require("path");
 const cors = require("cors");
-const socket = require("socket.io");
 const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const errorHandeler = require("./middleware/errorHandeler");
 const verifyJWT = require("./middleware/verifyJWT");
 const credentials = require("./middleware/credentials");
 const cookieParser = require("cookie-parser");
+const IP = process.env.IP || "localhost";
 const PORT = process.env.PORT || 3500;
+
+// Socekt io
+io.on("connection", (socket) => {
+  socket.on("chat message", ({ msg, time, user }) => {
+    io.emit("chat message", { msg, time, user });
+  });
+});
 
 // middleware
 app.use(logger);
@@ -56,33 +73,4 @@ app.all("*", (req, res) => {
 
 app.use(errorHandeler);
 
-const server = app.listen(PORT, "192.168.56.1", () =>
-  console.log(`Server running on port ${PORT}`)
-);
-
-const io = socket(server, {
-  cors: {
-    origin: "http://192.168.56.1:5173",
-    credentials: true,
-  },
-});
-
-global.olineUsers = new Map();
-io.on("connection", (socket) => {
-  global.chatsocket = socket;
-  socket.on("addUser", (id) => {
-    onlineUsers.set(id, socket.id);
-  });
-
-  socket.on("send-msg", (data) => {
-    const sendUserSocket = onlineUsers.get(data.to);
-
-    console.log(onlineUsers);
-
-    console.log(data);
-
-    if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("msg-receive", data.message);
-    }
-  });
-});
+server.listen(PORT, IP, () => console.log(`Server running on ${IP}:${PORT}`));

@@ -3,13 +3,14 @@ import { FiSend } from "react-icons/fi";
 import axios from "../api/index";
 import Message from "../components/Message";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useFetcher, useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import { useState, useEffect, useRef } from "react";
-
 import { io } from "socket.io-client";
 
 const Chat = () => {
+  const [date, setDate] = useState(new Date());
+
   const { auth } = useAuth();
   const navigate = useNavigate();
   const logout = useLogout();
@@ -18,27 +19,16 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [txt, setTxt] = useState("");
+  const [id, setId] = useState(0);
   const lastMessageRef = useRef(null);
-  const socket = useRef();
+
+  const socket = io("http://192.168.56.1:3500");
 
   useEffect(() => {
-    loadMessages();
-    socket.current = io("http://192.168.56.1:5173");
-    socket.current.emit("addUser", "");
+    socket.on("chat message", function ({ msg, time, user }) {
+      setNewMessage({ id, user, content: msg, time });
+    });
   }, []);
-
-  useEffect(() => {
-    if (socket.current) {
-      socket.current.on("msg-receive", (msg) => {
-        console.log(msg);
-        setNewMessage(msg);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    newMessage && setMessages((pre) => [...pre, newMessage]);
-  }, [newMessage]);
 
   const loadMessages = async () => {
     try {
@@ -51,13 +41,6 @@ const Chat = () => {
   };
 
   const sendMessage = async () => {
-    socket.current.emit("send-msg", {
-      to: "",
-      from: auth.user,
-      message: txt,
-    });
-    setTxt("");
-
     const controller = new AbortController();
     try {
       const response = await axiosPrivate.post("/send-message", {
@@ -69,6 +52,13 @@ const Chat = () => {
     } catch (err) {
       console.log(err);
     }
+
+    socket.emit("chat message", {
+      msg: txt,
+      time: `${date.getHours()}:${date.getMinutes()}`,
+      user: auth.user,
+    });
+    setTxt("");
   };
 
   const handleSubmit = (e) => {
@@ -78,8 +68,22 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    newMessage && setMessages((prev) => [...prev, newMessage]);
+  }, [newMessage]);
+
+  useEffect(() => {
+    loadMessages();
+  }, []);
+
+  useEffect(() => {
     lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+  }, []);
 
   const signOut = async () => {
     await logout();
@@ -89,10 +93,16 @@ const Chat = () => {
   return (
     <main className='w-screen h-screen bg-[#28104E] flex justify-center items-center font-unbounded overflow-y-hidden'>
       <div className='bg-[#1a0b31] absolute w-screen h-[80px] top-0 z-10'></div>
+      <section className='absolute left-8 top-2 flex justify-center items-center gap-2'>
+        <p className='text-[#e6caf3] z-20 text-2xl'>
+          {date.toLocaleTimeString("fr-FR")}
+        </p>
+      </section>
       <section className='absolute right-32 top-2 flex justify-center items-center gap-2'>
         <img
-          src={""}
-          className='h-16 w-16 rounded-full border-2 border-[#e6caf3] z-20'
+          src={`https://api.dicebear.com/5.x/croodles-neutral/svg?seed=${auth.user}`}
+          alt='avatar'
+          className='h-16 w-16 rounded-full border-2 border-[#6237A0] bg-[#f0dff8] z-20'
         />
         <h3 className='text-[#e6caf3] z-20'>{auth.user}</h3>
       </section>
